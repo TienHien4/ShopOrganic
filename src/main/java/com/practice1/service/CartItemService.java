@@ -6,5 +6,6 @@ import com.practice1.entities.CartItem;
 
 public interface CartItemService {
 	List<CartItem> getAllItem();
+	int getTotalQuantityInCart(int cartId);
 
 }

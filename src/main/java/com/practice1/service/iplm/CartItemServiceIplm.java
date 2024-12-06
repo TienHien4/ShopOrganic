@@ -15,8 +15,13 @@ public class CartItemServiceIplm implements com.practice1.service.CartItemServic
 
 	@Override
 	public List<CartItem> getAllItem() {
-		
+
 		return (List<CartItem>) itemRepo.findAll();
+	}
+
+	public int getTotalQuantityInCart(int cartId) {
+		Integer totalQuantity = itemRepo.findTotalQuantityByCartId(cartId);
+		return totalQuantity != null ? totalQuantity : 0;
 	}
 
 }

@@ -50,15 +50,21 @@ public class CilentController1 {
 	
 // Get danh sach san pham(phan trang)
 	@GetMapping({"/index", "/"})
-	public String index(Model model) {
-		return findPaginated(1, model);
+	public String index(Model model, Principal principal) {
+		return findPaginated(1, model, principal);
    }
 
 	@GetMapping("/index/{pageNo}")
-	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+	public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model, Principal principal) {
 	    int pageSize = 5;
 	    Page < SanPham> page = spService.findPaginated(pageNo, pageSize);
 	    List <SanPham> SanPhams = page.getContent();
+//		int cartId;
+//		String username = principal.getName();
+//		Customer customer = userRepo.findByUsername(username);
+//		cartId = Integer.valueOf(customer.getShoppingCart().getId());
+//		int totalQuantity = itemService.getTotalQuantityInCart(cartId);
+//		model.addAttribute("totalQuantity", totalQuantity);
 	    model.addAttribute("currentPage", pageNo);
 	    model.addAttribute("totalPages", page.getTotalPages());
 	    model.addAttribute("totalItems", page.getTotalElements());

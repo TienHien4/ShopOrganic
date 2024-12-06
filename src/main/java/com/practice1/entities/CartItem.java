@@ -23,7 +23,7 @@ public class CartItem {
 	private int quantity;
 	@Column(name="totalPrice")
 	private double totalPrice;
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = false)
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private SanPham sp;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
