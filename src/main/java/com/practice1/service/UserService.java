@@ -10,7 +10,7 @@ public interface UserService {
 	public UserResponse createUser(UserDto user);
 	UserDto save(UserDto Dto);
 	public boolean checkEmail(String email);
-	public boolean checkLogin(Customer user);
+	public boolean checkLogin(UserDto user);
 	public Customer loadUserByUsername(String username);
 
 }

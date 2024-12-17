@@ -64,22 +64,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/admin/*")
-		.hasRole("ADMIN")
-		.antMatchers("/*")
-		.permitAll()
-		.antMatchers("/signin").permitAll()
-		.and().formLogin().loginPage("/signin").loginProcessingUrl("/login")
-				.defaultSuccessUrl("/index").and().csrf().disable();
-		
-		
-		http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.csrf().disable()
+				.authorizeRequests()
+				// Phân quyền: chỉ ADMIN được truy cập URL bắt đầu bằng "/admin/"
+				.antMatchers("/admin/**").hasRole("ADMIN")
 
-		
-		
-		
-		
+				// Cho phép truy cập không cần login
+				.antMatchers("/", "/signin", "/css/**", "/js/**", "/img/**", "/error").permitAll()
+
+				// Các URL khác yêu cầu xác thực
+				.anyRequest().authenticated()
+
+				.and()
+				// Cấu hình trang đăng nhập
+				.formLogin()
+				.loginPage("/signin") // URL trang đăng nhập
+				.loginProcessingUrl("/login") // URL xử lý form đăng nhập
+				.defaultSuccessUrl("/index", true) // Chuyển hướng khi đăng nhập thành công
+				.failureUrl("/signin?error=true") // Chuyển hướng khi đăng nhập thất bại
+				.permitAll()
+
+				.and()
+				// Cấu hình logout
+				.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/signin?logout=true")
+				.permitAll();
+
 
 	}
+		
+		
+		
+		
+
 
 }

@@ -10,6 +10,8 @@ import com.practice1.entities.Customer;
 public interface UserRepository extends JpaRepository<Customer, Integer> {
 
 	public boolean existsByUsername(String username);
+	public boolean existsByEmail(String email);
+
 
 	Customer findByUsername(String username);
 

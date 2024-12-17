@@ -8,13 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="pracitce1" />
-        <module name="NakanoMikuShop-main" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="NakanoMikuShop-main" options="-parameters" />
       <module name="pracitce1" options="-parameters" />
     </option>
   </component>

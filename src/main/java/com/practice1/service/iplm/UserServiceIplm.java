@@ -31,13 +31,13 @@ public class UserServiceIplm implements UserService{
 	@Autowired
 	private UserMapper mapper;
 	public static List<Customer> listUser = new ArrayList<>();
-	
-	
-	
+
+
+
 
 	@Override
 	public boolean checkEmail(String email) {
-		return userRepo.existsByUsername(email);
+		return userRepo.existsByEmail(email);
 	}
 
 
@@ -58,12 +58,18 @@ public class UserServiceIplm implements UserService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public boolean checkLogin(Customer user) {
-		
+	@Override
+	public boolean checkLogin(UserDto user) {
+		// Kiểm tra xem username có tồn tại không
+		Customer dbUser = userRepo.findByUsername(user.getUsername());
+		if (dbUser == null) {
+			return false;
+		}
 
-				return true;
-		
+		// So sánh mật khẩu đã mã hóa
+		return passwordEncode.matches(user.getPassword(), dbUser.getPassword());
 	}
+
 	
 	
 	public Customer loadUserByUsername(String username) {
